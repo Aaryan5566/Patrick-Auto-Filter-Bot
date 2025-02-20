@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '23378704'))
 API_HASH = environ.get('API_HASH', '15a02b4d02babeb79e8f328b0ead0c17')
-BOT_TOKEN = environ.get('BOT_TOKEN', "7998698561:AAFLrWwEedW8b_UkH_rAjVV4BEhhSCUVijw")
+BOT_TOKEN = environ.get('BOT_TOKEN', "7917351134:AAFz-wi0zC0PabOOPcWIydblZmkd51WYjWI")
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -52,11 +52,11 @@ NO_RESULTS_MSG = bool(environ.get("NO_RESULTS_MSG", False))
 # info.py
 
 # Primary Database
-PRIMARY_DB_URI = "mongodb+srv://username:password@cluster0.mongodb.net/PrimaryDB?retryWrites=true&w=majority"
+PRIMARY_DB_URI = "mongodb+srv://heckly5566:OKUxbQfVrIezLpra@cluster0.9hl7r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 PRIMARY_DB_NAME = "PrimaryDB"
 
 # Secondary Database
-SECONDARY_DB_URI = "mongodb+srv://username:password@cluster0.mongodb.net/SecondaryDB?retryWrites=true&w=majority"
+SECONDARY_DB_URI = "mongodb+srv://rohtashkumarsharma1994:NxNSQqdRkE8gHVHB@cluster0.5gatz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0i7hjvjb"
 SECONDARY_DB_NAME = "SecondaryDB"
 
 # Verify
@@ -76,7 +76,7 @@ CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/Patrick_Botz')
 TUTORIAL = environ.get('TUTORIAL', 'https://filmclan1.blogspot.com/p/how-to-open-kingurl-link.html')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
 MSG_ALRT = environ.get('MSG_ALRT', '🌿 ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ : Pᴀᴛʀɪᴄᴋ Bᴏᴛᴢ')
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002187501114'))
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002393373626'))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'requestmoviesgroup0')
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "False")), False)
 IMDB = is_enabled((environ.get('IMDB', "True")), True)
