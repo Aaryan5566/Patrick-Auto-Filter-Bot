@@ -58,6 +58,7 @@ PRIMARY_DB_NAME = "PrimaryDB"
 # Secondary Database
 SECONDARY_DB_URI = "mongodb+srv://rohtashkumarsharma1994:NxNSQqdRkE8gHVHB@cluster0.5gatz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0i7hjvjb"
 SECONDARY_DB_NAME = "SecondaryDB"
+COLLECTION_NAME = "MediaFiles"  # Agar collection ka naam kuch aur hai toh yahan update kar
 
 # Verify
 VERIFY = bool(environ.get('VERIFY', False))
