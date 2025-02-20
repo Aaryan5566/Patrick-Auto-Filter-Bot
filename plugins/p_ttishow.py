@@ -153,18 +153,55 @@ async def re_enable_chat(bot, message):
     await message.reply("Chat Successfully re-enabled")
 
 
-@Client.on_message(filters.command('stats') & filters.incoming)
-async def get_ststs(bot, message):
-    rju = await message.reply('Fetching stats..')
-    total_users = await db.total_users_count()
-    totl_chats = await db.total_chat_count()
-    files = await Media.count_documents()
-    size = await db.get_db_size()
-    free = 536870912 - size
-    size = get_size(size)
-    free = get_size(free)
-    await rju.edit(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
+from database.users_chats_db import Database
+from database.ia_filterdb import Media
+import json
+from pyrogram import Client, filters
+from utils import get_size
+import script
 
+# Function to get active database
+def get_active_db():
+    with open("config.json", "r") as f:
+        config = json.load(f)
+        return config["active_db"]
+
+# Function to get total stats from both databases
+async def get_total_stats():
+    db1 = Database("PrimaryDB")  # Primary Database
+    db2 = Database("SecondaryDB")  # Secondary Database
+
+    total_users_1 = await db1.total_users_count()
+    total_users_2 = await db2.total_users_count()
+
+    total_chats_1 = await db1.total_chat_count()
+    total_chats_2 = await db2.total_chat_count()
+
+    files_1 = await Media.count_documents()
+    files_2 = await Media.count_documents()
+
+    size_1 = await db1.get_db_size()
+    size_2 = await db2.get_db_size()
+
+    total_users = total_users_1 + total_users_2
+    total_chats = total_chats_1 + total_chats_2
+    total_files = files_1 + files_2
+    total_size = size_1 + size_2
+    free_size = 536870912 - total_size  # 512 MB limit
+
+    total_size = get_size(total_size)
+    free_size = get_size(free_size)
+
+    return total_files, total_users, total_chats, total_size, free_size
+
+# ✅ Fixed `/stats` command
+@Client.on_message(filters.command('stats') & filters.incoming)
+async def get_stats(bot, message):
+    rju = await message.reply('Fetching stats..')
+
+    total_files, total_users, total_chats, total_size, free_size = await get_total_stats()
+
+    await rju.edit(script.STATUS_TXT.format(total_files, total_users, total_chats, total_size, free_size))
 
 @Client.on_message(filters.command('invite') & filters.user(ADMINS))
 async def gen_invite(bot, message):
