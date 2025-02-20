@@ -49,10 +49,15 @@ REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 NO_RESULTS_MSG = bool(environ.get("NO_RESULTS_MSG", False))
 
-# MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://rohtashkumarsharma1994:NxNSQqdRkE8gHVHB@cluster0.5gatz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0i7hjvjb")
-DATABASE_NAME = environ.get('DATABASE_NAME', "autofcbot")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
+# info.py
+
+# Primary Database
+PRIMARY_DB_URI = "mongodb+srv://username:password@cluster0.mongodb.net/PrimaryDB?retryWrites=true&w=majority"
+PRIMARY_DB_NAME = "PrimaryDB"
+
+# Secondary Database
+SECONDARY_DB_URI = "mongodb+srv://username:password@cluster0.mongodb.net/SecondaryDB?retryWrites=true&w=majority"
+SECONDARY_DB_NAME = "SecondaryDB"
 
 # Verify
 VERIFY = bool(environ.get('VERIFY', False))
