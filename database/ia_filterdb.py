@@ -160,3 +160,39 @@ def unpack_new_file_id(new_file_id):
     )
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
+
+# IA Filter DB Code (Existing Code...)
+
+# ✅ Ye Function Sabse Neeche Add Karna Hai
+import re
+
+# Function to get bad files based on a query
+async def get_bad_files(query, file_type=None):
+    """For given query return (results, total_results)"""
+    query = query.strip()
+
+    if not query:
+        raw_pattern = '.'
+    elif ' ' not in query:
+        raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
+    else:
+        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]')
+
+    try:
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+    except:
+        return []
+
+    filter_query = {'file_name': regex}
+    if USE_CAPTION_FILTER:
+        filter_query = {'$or': [{'file_name': regex}, {'caption': regex}]}
+
+    if file_type:
+        filter_query['file_type'] = file_type
+
+    total_results = await Media.count_documents(filter_query)
+    cursor = Media.find(filter_query).sort('$natural', -1)
+
+    files = await cursor.to_list(length=total_results)
+
+    return files, total_results
